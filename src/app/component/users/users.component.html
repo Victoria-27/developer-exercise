@@ -1,26 +1,34 @@
 <app-nav-bar></app-nav-bar>
 
 <div class="container mx-auto px-4">
-    <h1 class="text-2xl font-bold mb-4">All Users</h1>
-    <div *ngFor="let user of getUsersForCurrentPage()" class="flex items-center justify-between border-b py-4">
-      <div class="flex-1">
-        <div class="flex items-center">
-          <p class="font-bold mr-2">Name:</p>
-          <p>{{ user.name }}</p>
-        </div>
-        <div class="flex items-center mt-2">
-          <p class="font-bold mr-2">User Role:</p>
-          <p>{{ user.userrole }}</p>
-        </div>
+  <h1 class="text-2xl font-bold mb-4">All Users</h1>
+  <div *ngFor="let user of getUsersForCurrentPage()" class="flex items-center justify-between border-b py-4">
+    <div class="flex-1">
+      <div class="flex items-center">
+        <p class="font-bold mr-2">Name:</p>
+        <p>{{ user.name }}</p>
       </div>
-      <button class="edit-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" (click)="editUser(user)">Edit Data</button>
+      <div class="flex items-center mt-2">
+        <p class="font-bold mr-2">User Role:</p>
+        <p>{{ user.userrole }}</p>
+      </div>
     </div>
-  
-    <div class="pagination">
-      <button class="pagination-button" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
-      <span class="mx-2">Page {{ currentPage }} of {{ getTotalPages() }}</span>
-      <button class="pagination-button" [disabled]="currentPage === getTotalPages()" (click)="onPageChange(currentPage + 1)">Next</button>
-    </div>
-  </div>
-  
+    <!-- Conditional button based on showEditRoleButton -->
+    <ng-container *ngIf="showEditRoleButton">
+      <button class="edit-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" (click)="editUserRole(user)">
+        Edit User Role
+      </button>
+    </ng-container>
+    <ng-container *ngIf="!showEditRoleButton">
+      <button class="edit-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" (click)="editUser(user)">
+        Edit Data
+      </button>
+    </ng-container>
+  </div>  
 
+  <div class="pagination">
+    <button class="pagination-button" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
+    <span class="mx-2">Page {{ currentPage }} of {{ getTotalPages() }}</span>
+    <button class="pagination-button" [disabled]="currentPage === getTotalPages()" (click)="onPageChange(currentPage + 1)">Next</button>
+  </div>
+</div>

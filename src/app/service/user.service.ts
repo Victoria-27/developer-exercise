@@ -4,26 +4,30 @@ import { SupaService } from './supa.service';
 import supabase from 'src/config/supabaseClient';
 
 @Injectable({
-  providedIn: 'root'
+  providedIn: 'root',
 })
 export class UserService {
   private searchTerm = new BehaviorSubject<string | null>(null);
   searchTerm$ = this.searchTerm.asObservable();
 
-  private editRoleTermSubject = new BehaviorSubject<string | null>(null);
-  editRoleTerm$ = this.editRoleTermSubject.asObservable();
+  private searchRoleTermSubject = new BehaviorSubject<string | null>(null);
+  searchRoleTerm$ = this.searchRoleTermSubject.asObservable();
 
-  constructor(private supaService: SupaService) { }
+  showEditRoleButton = new BehaviorSubject<boolean>(false);
+
+
+  constructor(private supaService: SupaService) {}
 
   updateSearchTerm(searchTerm: string | null) {
-    this.searchTerm.next(searchTerm)
+    this.searchTerm.next(searchTerm);
   }
-  updateEditRoleTerm(editRoleTerm: string | null) {
-    this.editRoleTermSubject.next(editRoleTerm);
+  updateSearchRoleTerm(searchRoleTerm: string | null) {
+    this.searchRoleTermSubject.next(searchRoleTerm);
+    this.showEditRoleButton.next(!!searchRoleTerm);
   }
 
   async fetchUsers() {
-    try{
+    try {
       const { data, error } = await supabase.from('users-catalog').select('*');
       if (error) {
         throw error;
@@ -33,9 +37,7 @@ export class UserService {
       console.error('Error fetching users:', error.message);
       throw error;
     }
-    
   }
-  
 
   async searchUsers(searchTerm: string) {
     try {
@@ -47,7 +49,7 @@ export class UserService {
       if (error) {
         throw error;
       }
-
+      console.log('Data received from searchUserRoles API:', data);
       return data || [];
     } catch (error: any) {
       console.error('Error fetching users:', error.message);
@@ -55,21 +57,50 @@ export class UserService {
     }
   }
 
-  async searchUserRoles(role: string) {
+  async searchUserRoles(userrole: string) {
     try {
       const { data, error } = await supabase
         .from('users-catalog')
         .select('*')
-        .ilike('role', `%${role}%`);
+        .ilike('userrole', `%${userrole}%`);
 
       if (error) {
         throw error;
       }
-
+      console.log('Data received from searchUserRoles API:', data);
       return data || [];
     } catch (error: any) {
       console.error('Error searching user roles:', error.message);
       throw error;
+    }
+  }
+
+  // Fetch user by ID
+  async fetchUserById(userId: string | undefined): Promise<any> {
+    if (!userId) return null;
+    const { data, error } = await supabase
+      .from('users-catalog')
+      .select('*')
+      .eq('id', userId);
+    if (error) {
+      console.error('Error fetching user:', error.message);
+      return null;
+    }
+    return data && data.length > 0 ? data[0] : null;
+  }
+
+
+  // Update user data
+  async updateUser(user: any): Promise<void> {
+    if (!user || !user.id) return;
+    const { error } = await supabase
+      .from('users-catalog')
+      .update(user)
+      .eq('id', user.id);
+    if (error) {
+      console.error('Error updating user:', error.message);
+    } else {
+      console.log('User updated successfully');
     }
   }
 }
