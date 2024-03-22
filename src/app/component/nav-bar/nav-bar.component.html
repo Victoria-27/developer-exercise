@@ -1,0 +1,16 @@
+<nav class="bg-gray-800 p-4">
+    <div class="flex items-center justify-between">
+        <div>
+            <h1 class="text-white text-lg font-bold">User Directory</h1>
+        </div>
+        <!-- Search bars -->
+        <div class="flex space-x-4">
+            <!-- Search Users Input Field -->
+            <input type="text" placeholder="Search Users" [formControl]="searchTerm"
+                (input)="onSearchInputChange($event)" class="border border-gray-300 rounded px-4 py-2" />
+            <!-- Search and Edit User Role Input Field -->
+            <input type="text" placeholder="Search and Edit User Role" [formControl]="editRoleTerm"
+                (input)="onEditRoleInputChange($event)" class="border border-gray-300 rounded px-4 py-2" />
+        </div>
+    </div>
+</nav>
