@@ -12,44 +12,36 @@
         Back
     </button>
 
-    <!-- Profile picture and edit button -->
-    <div class="flex items-center mb-8">
+    <!-- Profile picture container -->
+    <div class="relative rounded-full overflow-hidden w-20 h-20 flex-shrink-0 mr-4">
         <!-- Profile picture -->
-        <div class="rounded-full overflow-hidden w-20 h-20 flex-shrink-0 mr-4">
-            <img src="path_to_profile_picture.jpg" alt="Profile Picture" class="w-full h-full object-cover">
-        </div>
+        <img [src]="user.profilePicture || 'default_profile_picture.jpg'" alt="Profile Picture" class="w-full h-full object-cover">
         <!-- Edit button -->
-        <button class="text-gray-600 hover:text-gray-800 focus:outline-none">
+        <button mat-icon-button class="absolute top-0 right-0 transform translate-x-1/2 translate-y-1/2 bg-gray-800 rounded-full w-8 h-8 flex items-center justify-center text-white focus:outline-none">
             <!-- Edit icon -->
-            <svg xmlns="http://www.w3.org/2000/svg" class="h-6 w-6" fill="none" viewBox="0 0 24 24"
-                stroke="currentColor">
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M15 12a3 3 0 11-6 0 3 3 0 016 0z" />
-                <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2"
-                    d="M5 15v2a2 2 0 002 2h10a2 2 0 002-2v-2M3 10h18" />
-            </svg>
+            <mat-icon>edit</mat-icon>
         </button>
     </div>
 
     <!-- User details form -->
     <form (submit)="updateUser()" class="max-w-md mx-auto">
         <div class="mb-6">
-            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+            <label for="name" class="block text-sm font-medium text-gray-700">Edit Name</label>
             <input type="text" id="name" name="name" [(ngModel)]="user.name"
                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
         </div>
         <div class="mb-6">
-            <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+            <label for="language" class="block text-sm font-medium text-gray-700">Edit Language</label>
             <input type="text" id="language" name="language" [(ngModel)]="user.language"
                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
         </div>
         <div class="mb-6">
-            <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+            <label for="bio" class="block text-sm font-medium text-gray-700">Edit Bio</label>
             <input type="text" id="bio" name="bio" [(ngModel)]="user.bio"
                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
         </div>
         <div class="mb-6">
-            <label for="version" class="block text-sm font-medium text-gray-700">Version</label>
+            <label for="version" class="block text-sm font-medium text-gray-700">Edit Version</label>
             <input type="text" id="version" name="version" [(ngModel)]="user.version"
                 class="mt-1 focus:ring-indigo-500 focus:border-indigo-500 block w-full shadow-sm sm:text-sm border-gray-300 rounded-md">
         </div>

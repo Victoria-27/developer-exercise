@@ -1,23 +1,33 @@
-import { Component } from '@angular/core';
-import supabase from 'src/config/supabaseClient';
+import { Component, OnInit } from '@angular/core';
 import { Router } from '@angular/router';
-import { UserService } from 'src/app/service/user.service';
 import { FormControl } from '@angular/forms';
+import { PageEvent } from '@angular/material/paginator';
+import { MatSnackBar } from '@angular/material/snack-bar';
+
+import { UserService } from 'src/app/service/user.service';
+import { Profile } from 'src/app/interface/profile.interface';
 
 @Component({
   selector: 'app-users',
   templateUrl: './users.component.html',
   styleUrls: ['./users.component.scss'],
 })
-export class UsersComponent {
-  users: any[] = [];
-  currentPage: number = 1;
+export class UsersComponent implements OnInit {
+  users: Profile[] = [];
+  currentPage: number = 0;
   itemsPerPage: number = 10;
   searchTerm: FormControl = new FormControl('');
   showEditRoleButton = false;
 
-  constructor(private router: Router, public userService: UserService) {
-     this.userService.searchTerm$.subscribe((searchTerm) => {
+  constructor(
+    private router: Router,
+    private userService: UserService,
+    private snackBar: MatSnackBar
+  ) {}
+
+  ngOnInit(): void {
+    this.fetchUsers();
+    this.userService.searchTerm$.subscribe((searchTerm) => {
       if (searchTerm) {
         this.searchUsers(searchTerm);
       } else {
@@ -31,49 +41,64 @@ export class UsersComponent {
       } else {
         this.fetchUsers();
       }
-    })
+    });
 
     this.userService.showEditRoleButton.subscribe((showButton) => {
       this.showEditRoleButton = showButton;
     });
   }
 
-
-  async ngOnInit(): Promise<void> {
-    this.fetchUsers();
-  }
-
-
   async fetchUsers(): Promise<void> {
-    this.users = await this.userService.fetchUsers();
+    try {
+      this.users = await this.userService.fetchUsers();
+    } catch (error) {
+      this.handleError('Failed to fetch users');
+    }
   }
 
   async searchUsers(searchTerm: string): Promise<void> {
-    this.users = await this.userService.searchUsers(searchTerm);
+    try {
+      this.users = await this.userService.searchUsers(searchTerm);
+    } catch (error) {
+      this.handleError('Failed to search users');
+    }
   }
+
   async searchUserRole(searchUserRoleTerm: string): Promise<void> {
-    this.users = await this.userService.searchUserRoles(searchUserRoleTerm);
+    try {
+      this.users = await this.userService.searchUserRoles(searchUserRoleTerm);
+    } catch (error) {
+      this.handleError('Failed to search user roles');
+    }
   }
-  
-    editUser(user: any): void {
-      this.router.navigate(['/user-detail', user.id]);
-    }
 
-    editUserRole(user: any): void {
-      // Implement editUserRole logic here
-    }
-  
-    onPageChange(pageNumber: number): void {
-      this.currentPage = pageNumber;
-    }
-  
-    getTotalPages(): number {
-      return Math.ceil(this.users.length / this.itemsPerPage);
-    }
+  editUser(user: Profile): void {
+    this.router.navigate(['/user-detail', user.id]);
+  }
 
-    getUsersForCurrentPage(): any[] {
-      const startIndex = (this.currentPage - 1) * this.itemsPerPage;
-      const endIndex = startIndex + this.itemsPerPage;
-      return this.users.slice(startIndex, endIndex);
-    }
+  editUserRole(user: Profile): void {
+    // Implement editUserRole logic here
+  }
+
+  onPageChange(event: PageEvent): void {
+    this.currentPage = event.pageIndex;
+  }
+
+  getTotalPages(): number {
+    return Math.ceil(this.users.length / this.itemsPerPage);
+  }
+
+  getUsersForCurrentPage(): Profile[] {
+    const startIndex = this.currentPage * this.itemsPerPage;
+    const endIndex = startIndex + this.itemsPerPage;
+    return this.users.slice(startIndex, endIndex);
+  }
+
+  private handleError(message: string): void {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
+      horizontalPosition: 'center',
+      verticalPosition: 'top',
+    });
+  }
 }

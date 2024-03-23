@@ -14,21 +14,11 @@
       </div>
     </div>
     <!-- Conditional button based on showEditRoleButton -->
-    <ng-container *ngIf="showEditRoleButton">
-      <button class="edit-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" (click)="editUserRole(user)">
-        Edit User Role
-      </button>
-    </ng-container>
-    <ng-container *ngIf="!showEditRoleButton">
-      <button class="edit-button bg-blue-500 text-white px-4 py-2 rounded hover:bg-blue-600" (click)="editUser(user)">
-        Edit Data
-      </button>
-    </ng-container>
+    <button mat-button color="primary" (click)="showEditRoleButton ? editUserRole(user) : editUser(user)">
+      {{ showEditRoleButton ? 'Edit User Role' : 'Edit Data' }}
+    </button>
   </div>  
 
-  <div class="pagination">
-    <button class="pagination-button" [disabled]="currentPage === 1" (click)="onPageChange(currentPage - 1)">Previous</button>
-    <span class="mx-2">Page {{ currentPage }} of {{ getTotalPages() }}</span>
-    <button class="pagination-button" [disabled]="currentPage === getTotalPages()" (click)="onPageChange(currentPage + 1)">Next</button>
-  </div>
+  <!-- Paginator -->
+  <mat-paginator [length]="users.length" [pageSize]="itemsPerPage" (page)="onPageChange($event)"></mat-paginator>
 </div>

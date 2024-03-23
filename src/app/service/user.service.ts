@@ -15,7 +15,6 @@ export class UserService {
 
   showEditRoleButton = new BehaviorSubject<boolean>(false);
 
-
   constructor(private supaService: SupaService) {}
 
   updateSearchTerm(searchTerm: string | null) {
@@ -28,7 +27,7 @@ export class UserService {
 
   async fetchUsers() {
     try {
-      const { data, error } = await supabase.from('users-catalog').select('*');
+      const { data, error } = await supabase.from('profile').select('*');
       if (error) {
         throw error;
       }
@@ -42,7 +41,7 @@ export class UserService {
   async searchUsers(searchTerm: string) {
     try {
       const { data, error } = await supabase
-        .from('users-catalog')
+        .from('profile')
         .select('*')
         .ilike('name', `%${searchTerm}%`);
 
@@ -60,7 +59,7 @@ export class UserService {
   async searchUserRoles(userrole: string) {
     try {
       const { data, error } = await supabase
-        .from('users-catalog')
+        .from('profile')
         .select('*')
         .ilike('userrole', `%${userrole}%`);
 
@@ -79,7 +78,7 @@ export class UserService {
   async fetchUserById(userId: string | undefined): Promise<any> {
     if (!userId) return null;
     const { data, error } = await supabase
-      .from('users-catalog')
+      .from('profile')
       .select('*')
       .eq('id', userId);
     if (error) {
@@ -89,12 +88,11 @@ export class UserService {
     return data && data.length > 0 ? data[0] : null;
   }
 
-
   // Update user data
   async updateUser(user: any): Promise<void> {
     if (!user || !user.id) return;
     const { error } = await supabase
-      .from('users-catalog')
+      .from('profile')
       .update(user)
       .eq('id', user.id);
     if (error) {

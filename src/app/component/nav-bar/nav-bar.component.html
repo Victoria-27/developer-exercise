@@ -1,16 +1,18 @@
 <nav class="bg-gray-800 p-4">
     <div class="flex items-center justify-between">
-        <div>
-            <h1 class="text-white text-lg font-bold">User Directory</h1>
-        </div>
-        <!-- Search bars -->
-        <div class="flex space-x-4">
-            <!-- Search Users Input Field -->
-            <input type="text" placeholder="Search Users" [formControl]="searchTerm"
-                (input)="onSearchInputChange($event)" class="border border-gray-300 rounded px-4 py-2" />
-            <!-- Search and Edit User Role Input Field -->
-            <input type="text" placeholder="Search and Edit User Role" [formControl]="searchRoleTerm"
-                (input)="onSearchRoleInputChange($event)" class="border border-gray-300 rounded px-4 py-2" />
-        </div>
+      <h1 class="text-white text-lg font-bold">User Directory</h1>
+      <div class="flex space-x-4">
+        <!-- Search Users Input Field -->
+        <mat-form-field appearance="fill">
+          <mat-label>Search Users</mat-label>
+          <input matInput [formControl]="searchTerm" class="rounded">
+        </mat-form-field>
+        <!-- Search and Edit User Role Input Field -->
+        <mat-form-field appearance="fill">
+          <mat-label>Search and Edit User Role</mat-label>
+          <input matInput [formControl]="searchRoleTerm" class="rounded">
+        </mat-form-field>
+      </div>
     </div>
-</nav>
+  </nav>
+  
