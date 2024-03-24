@@ -12,16 +12,20 @@
         Back
     </button>
 
-    <!-- Profile picture container -->
-    <div class="relative rounded-full overflow-hidden w-20 h-20 flex-shrink-0 mr-4">
-        <!-- Profile picture -->
-        <img [src]="user.profilePicture || 'default_profile_picture.jpg'" alt="Profile Picture" class="w-full h-full object-cover">
-        <!-- Edit button -->
-        <button mat-icon-button class="absolute top-0 right-0 transform translate-x-1/2 translate-y-1/2 bg-gray-800 rounded-full w-8 h-8 flex items-center justify-center text-white focus:outline-none">
-            <!-- Edit icon -->
-            <mat-icon>edit</mat-icon>
-        </button>
-    </div>
+ <!-- Profile picture container -->
+<div class="relative rounded-full overflow-hidden w-20 h-20 flex-shrink-0 mr-4">
+    <!-- Profile picture -->
+    <img [src]="user.profile_picture || 'default_profile_picture.jpg'" alt="Profile Picture" class="w-full h-full object-cover">
+    <!-- Profile picture upload -->
+    <input type="file" accept="image/*" (change)="uploadProfilePicture($event)" class="absolute inset-0 opacity-0 cursor-pointer">
+    <!-- Edit button -->
+    <button mat-icon-button class="absolute top-0 right-0 transform translate-x-1/2 translate-y-1/2 bg-gray-800 rounded-full w-8 h-8 flex items-center justify-center text-white focus:outline-none" (click)="editProfile()">
+        <!-- Edit icon -->
+        <mat-icon>edit</mat-icon>
+    </button>
+</div>
+
+
 
     <!-- User details form -->
     <form (submit)="updateUser()" class="max-w-md mx-auto">

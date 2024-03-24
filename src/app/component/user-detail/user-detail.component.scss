@@ -1,0 +1,16 @@
+/* Style the edit icon */
+.edit-icon {
+    background: none;
+    border: none;
+    cursor: pointer;
+    padding: 0;
+    margin: 0;
+}
+
+/* Customize the appearance of the pencil icon */
+.edit-icon svg {
+    width: 24px;
+    height: 24px;
+    fill: none;
+    stroke: #000;
+}

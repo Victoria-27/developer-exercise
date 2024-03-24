@@ -90,6 +90,7 @@ export class UserService {
 
   // Update user data
   async updateUser(user: any): Promise<void> {
+    console.log(user, "USER")
     if (!user || !user.id) return;
     const { error } = await supabase
       .from('profile')
@@ -101,4 +102,62 @@ export class UserService {
       console.log('User updated successfully');
     }
   }
+
+  async toggleUserRole(userId: string): Promise<void> {
+    // Fetch user from Supabase backend
+    const user = await this.fetchUserById(userId);
+    
+    // Toggle user role locally
+    if (user) {
+      user.userrole = user.userrole === 'Admin' ? 'User' : 'Admin';
+      
+      // Update user role in Supabase backend
+      await supabase
+        .from('profile')
+        .update({ userrole: user.userrole })
+        .eq('id', userId);
+    }
+  }
+
+  async uploadProfilePicture(file: File): Promise<string> {
+    console.log(file, 'kkkkkkkk')
+    const { data, error } = await supabase.storage
+      .from('savedpictures')
+      .upload(file.name,file);
+  
+    if (error) {
+      console.log(error)
+      throw error;
+    }
+  console.log(data)
+  let url = ''
+  if(data) {
+    interface Test {
+      path: string,
+      fullPath: string
+    }
+    const fullPath = (data as Test).path
+
+    const { data: publicUrl } = supabase
+  .storage
+  .from('savedpictures')
+  .getPublicUrl(fullPath)
+  console.log(publicUrl)
+  url = publicUrl.publicUrl
+  }
+  return url
+    // return data?.path || ''; // Check the correct property name for the URL or key
+  }
+  
+
+//   async updateUserProfilePicture(userId: string, imageUrl: string): Promise<void> {
+//     try {
+//       await supabase.from('profile').update({ profilePicture: imageUrl }).eq('id', userId);
+//       console.log('User profile picture updated successfully');
+//     } catch (error: any) {
+//       console.error('Error updating user profile picture:', error.message);
+//       throw error;
+//     }
+  
+// }
 }

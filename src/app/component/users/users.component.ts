@@ -76,8 +76,21 @@ export class UsersComponent implements OnInit {
     this.router.navigate(['/user-detail', user.id]);
   }
 
-  editUserRole(user: Profile): void {
-    // Implement editUserRole logic here
+  editUserRole(user: any): void {
+    // Toggle user role
+    this.userService.toggleUserRole(user.id)
+      .then(() => {
+        // Show success message
+        this.openSnackBar('User role updated successfully');
+        setTimeout(() => {
+          window.location.reload();
+        }, 2000);
+      })
+      .catch(error => {
+        // Show error message
+        console.error('Error updating user role:', error);
+        this.openSnackBar('Error updating user role');
+      });
   }
 
   onPageChange(event: PageEvent): void {
@@ -99,6 +112,12 @@ export class UsersComponent implements OnInit {
       duration: 3000,
       horizontalPosition: 'center',
       verticalPosition: 'top',
+    });
+  }
+
+  openSnackBar(message: string) {
+    this.snackBar.open(message, 'Close', {
+      duration: 3000,
     });
   }
 }

@@ -15,6 +15,7 @@ export class UserDetailComponent implements OnInit {
   selectedFile: File | null = null;
   user: any;
   isLoading: boolean = false;
+  // profilePicture!: string;
 
   constructor(private route: ActivatedRoute, private router: Router, private userService: UserService, private snackBar: MatSnackBar) {}
 
@@ -45,6 +46,9 @@ export class UserDetailComponent implements OnInit {
       .then(() => {
         console.log('User updated successfully');
         this.openSnackBar('User updated successfully');
+        // setTimeout(() => {
+        //   window.location.reload();
+        // }, 2000);
       })
       .catch(error => {
         console.error('Error updating user:', error.message);
@@ -54,26 +58,42 @@ export class UserDetailComponent implements OnInit {
   }
    
 
-  uploadProfilePicture() {
-    if (!this.user) return; 
-    const formData = new FormData();
-    formData.append('file', this.selectedFile as Blob);
-    formData.append('id', this.userId || '');
-    supabase.storage
-      .from('profile-pictures')
-      .upload(`user-${this.userId}`, formData)
-      .then(({ data, error }) => {
-        if (error) {
-          console.error('Error uploading profile picture:', error.message);
-          this.openSnackBar('Error uploading profile picture:');
-
-          return;
-        }
-        console.log('Profile picture uploaded successfully');
-        this.openSnackBar('Profile picture uploaded successfully');
-
-      });
+  async uploadProfilePicture(event: any): Promise<void> {
+    if (!this.user) return;
+  
+    const file = event.target.files[0];
+    if (!file) return;
+  
+    const reader = new FileReader();
+  
+    reader.onload = async (e: any) => {
+      const imageDataUrl: string = e.target.result;
+  console.log(imageDataUrl)
+  
+      // this.user.profilePicture = imageDataUrl;
+      // this.user['profile-pic-id'] = imageDataUrl;
+    const publicUrl = await this.userService.
+    uploadProfilePicture(file);
+      console.log(publicUrl, 'public url')
+      this.user.profile_picture = publicUrl
+      // Display success message
+      this.openSnackBar('Profile picture uploaded successfully');
+      
+      const profilePictureElement = document.getElementById('profile-picture');
+      if (profilePictureElement) {
+        profilePictureElement.setAttribute('src', imageDataUrl);
+        // this.profilePicture = imageDataUrl
+      }
+    };
+  
+    reader.readAsDataURL(file);
+  }
+  
+  
+editProfile(): void {
+  // Implement edit profile logic here
 }
+
 openSnackBar(message: string) {
   this.snackBar.open(message, 'Close', {
     duration: 3000,
