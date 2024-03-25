@@ -1,0 +1,31 @@
+<app-nav-bar></app-nav-bar>
+
+<div class="container mx-auto px-4">
+    <h1 class="text-2xl font-bold mb-4 pt-1">All Users</h1>
+    <div *ngFor="let user of getUsersForCurrentPage()"
+        class="flex items-center justify-between border-1 p-3 rounded-lg my-4 shadow-md"
+        [ngClass]="{'hover:bg-gray-200': isHovered}" (mouseenter)="toggleHoverState()"
+        (mouseleave)="toggleHoverState()">
+
+        <div class="flex flex-col gap-4">
+            <div class="flex items-center">
+                <p class="font-bold mr-2">Name:</p>
+                <p>{{ user.name }}</p>
+            </div>
+            <div class="flex items-center mt-2">
+                <p class="font-bold mr-2">User Role:</p>
+                <p>{{ user.userrole }}</p>
+            </div>
+        </div>
+        <!-- Conditional button based on showEditRoleButton -->
+        <button (click)="showEditRoleButton ? editUserRole(user) : editUser(user)"
+            class="text-white bg-yellow-600 rounded-full px-8 py-2">
+            {{ showEditRoleButton ? 'Edit User Role' : 'Edit Data' }}
+        </button>
+    </div>
+
+    <!-- Paginator -->
+    <div class="sticky bottom-0 left-0 w-full bg-white shadow-md p-4">
+        <mat-paginator [length]="users.length" [pageSize]="itemsPerPage" (page)="onPageChange($event)"></mat-paginator>
+    </div>
+</div>

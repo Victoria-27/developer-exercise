@@ -1,0 +1,64 @@
+<div *ngIf="isLoading" class="container mx-auto p-6">Loading...</div>
+<div *ngIf="!isLoading && user" class="container mx-auto p-6">
+    <!-- Back button -->
+    <button (click)="goBack()"
+        class="mb-8 inline-flex items-center justify-center px-4 py-2 border border-gray-300 rounded-md shadow-sm text-sm font-medium text-gray-700 bg-white hover:bg-gray-50 focus:outline-none focus:ring-2 focus:ring-offset-2 focus:ring-indigo-500">
+        <!-- Back icon -->
+        <svg xmlns="http://www.w3.org/2000/svg" class="-ml-1 mr-2 h-5 w-5" viewBox="0 0 20 20" fill="currentColor">
+            <path fill-rule="evenodd"
+                d="M12.707 4.293a1 1 0 00-1.414-1.414l-7 7a1 1 0 000 1.414l7 7a1 1 0 001.414-1.414L7.414 12H18a1 1 0 100-2H7.414l5.293-5.293z"
+                clip-rule="evenodd" />
+        </svg>
+        Back
+    </button>
+
+   <!-- Profile picture container -->
+<div class="flex items-center mb-8">
+    <!-- Profile picture -->
+    <div class="relative w-20 h-20 flex-shrink-0 mr-4">
+        <img [src]="user.profile_picture || 'default_profile_picture.jpg'" alt="Profile Picture"
+            class="w-full h-full object-cover rounded-full">
+        <!-- Profile picture upload -->
+        <input type="file" accept="image/*" (change)="uploadProfilePicture($event)" id="profilePictureInput"
+            class="z-15 absolute inset-0 opacity-0 cursor-pointer">
+        <!-- Edit button -->
+        <button (click)="triggerFileUpload()" class="z-0 absolute -bottom-4 -right-4 bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center focus:outline-none">
+            <!-- Edit icon -->
+            <mat-icon style="font-size: 14px;">edit</mat-icon>
+        </button>
+    </div>
+</div>
+
+
+    <!-- User details form -->
+    <form (submit)="updateUser()" class="mx-auto">
+        <div class="mb-6">
+            <label for="name" class="block text-sm font-medium text-gray-700">Name</label>
+            <input type="text" id="name" name="name" [(ngModel)]="user.name"
+                class="mt-1 block w-1/2 shadow-sm sm:text-sm border-gray-200 rounded-full border-2 h-8 pl-4 py-6">
+        </div>
+        <div class="mb-6">
+            <label for="language" class="block text-sm font-medium text-gray-700">Language</label>
+            <input type="text" id="language" name="language" [(ngModel)]="user.language"
+                class="mt-1 block w-1/2 shadow-sm sm:text-sm border-gray-200 border-2 rounded-full h-8 pl-4 py-6">
+        </div>
+        <div class="mb-6">
+            <label for="language" class="block text-sm font-medium text-gray-700">Id</label>
+            <input type="text" id="language" name="id" [(ngModel)]="user.id" [readOnly]="true"
+                class="mt-1 block w-1/2 shadow-sm sm:text-sm border-gray-200 border-2 rounded-full h-8 pl-4 py-6">
+        </div>
+        <div class="mb-6">
+            <label for="bio" class="block text-sm font-medium text-gray-700">Bio</label>
+            <input type="text" id="bio" name="bio" [(ngModel)]="user.bio"
+                class="mt-1 block w-1/2 shadow-sm sm:text-sm border-gray-200 border-2 rounded-full h-8 pl-4 py-6">
+        </div>
+        <div class="mb-6">
+            <label for="version" class="block text-sm font-medium text-gray-700">Version</label>
+            <input type="text" id="version" name="version" [(ngModel)]="user.version" [readOnly]="true"
+                class="mt-1 block w-1/2 shadow-sm sm:text-sm border-gray-200 border-2 rounded-full h-8 pl-4 py-6">
+        </div>
+        <!-- Update button -->
+        <button type="submit"
+            class="inline-flex items-center justify-center p-6 text-sm font-medium text-gray-800 focus:outline-none focus:ring-2 focus:ring-offset-2 border-gray-800 border-2 rounded-full h-2 w-1/4">Update</button>
+    </form>
+</div>
