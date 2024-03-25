@@ -15,11 +15,26 @@ The User Catalog application is a web-based tool designed to help users manage a
 - **Update User Details:** Allows users to update details and upload profile pictures of users.
 
 ## Additional Information
+
 - Added readonly to id and version feilds
 - Toggle functionality to switch user role
 - Integrated profile picture implementation to user profile
 
 ## supabase setup to run the app, list created table, link up file to upload data
+
+## Supabase Setup
+
+- **Sign Up for Supabase**: [Sign up](https://supabase.io/) for a Supabase account if you haven't already.
+- **Create a Project**: Create a new project in your Supabase dashboard.
+- **Get Credentials**: Obtain the API URL, public key, and private key from your Supabase project settings.
+- **Environment Variables**: Set up environment variables in your application to securely store Supabase credentials.
+
+## List of Created Tables
+
+Below is a list of table and storage created in the Supabase project:
+
+- `profile`: Description of table 1.
+- `savedpictures`: Description of bucket.
 
 ## System Requirements
 
@@ -29,22 +44,33 @@ The User Catalog application is a web-based tool designed to help users manage a
 
 - Angular CLI
 
-## Installation
+## Running the Application
 
-### Clone Repository
+To run the application locally:
 
-**Clone Repository:**
+- Clone the repository: `git clone <repository-url>`
+- Install dependencies: `npm install`
+- Set up environment variables with Supabase credentials.
 
-- Clone the repository using the command `git clone <repository_url>`.
-- Navigate to the project directory: `cd user-directory`.
-
-**Install Dependencies:**
-
-- Install the required dependencies using `npm install`.
-
-**Run Development Server:** 
+**Run Development Server:**
 
 - Start the development server with the command `ng serve`. The application will be accessible at `http://localhost:4200`.
+
+## Sample Data
+
+You can find the sample data used for populating Supabase in the following JSON file:
+[Sample Data JSON](link-to-your-json-file)
+
+## Troubleshooting and FAQs
+
+Include common troubleshooting tips and FAQs related to Supabase setup and usage.
+
+## References
+
+- [Supabase Documentation](https://supabase.io/docs)
+- [Helpful Resources](https://supabase.com/docs/guides/api/rest/generating-types)
+- [UI Design](https://app.uizard.io/p/e3d0540f/preview)
+
 
 ## Build
 
