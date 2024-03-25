@@ -12,23 +12,23 @@
         Back
     </button>
 
-    <!-- Profile picture container -->
-    <div class="flex items-center mb-8">
-        <!-- Profile picture -->
-        <div class="relative w-20 h-20 flex-shrink-0 mr-4">
-            <img [src]="user.profile_picture || 'default_profile_picture.jpg'" alt="Profile Picture"
-                class="w-full h-full object-cover rounded-full">
-            <!-- Profile picture upload -->
-            <input type="file" accept="image/*" (change)="uploadProfilePicture($event)"
-                class="z-10 absolute inset-0 opacity-0 cursor-pointer">
-            <!-- Edit button -->
-            <button
-                class="z-0 absolute -bottom-4 -right-4 bg-gray-800 rounded-full w-8 h-8 flex items-center justify-center focus:outline-none">
-                <!-- Edit icon -->
-                <span>edit</span>
-            </button>
-        </div>
+   <!-- Profile picture container -->
+<div class="flex items-center mb-8">
+    <!-- Profile picture -->
+    <div class="relative w-20 h-20 flex-shrink-0 mr-4">
+        <img [src]="user.profile_picture || 'default_profile_picture.jpg'" alt="Profile Picture"
+            class="w-full h-full object-cover rounded-full">
+        <!-- Profile picture upload -->
+        <input type="file" accept="image/*" (change)="uploadProfilePicture($event)" id="profilePictureInput"
+            class="z-15 absolute inset-0 opacity-0 cursor-pointer">
+        <!-- Edit button -->
+        <button (click)="triggerFileUpload()" class="z-0 absolute -bottom-4 -right-4 bg-gray-200 rounded-full w-8 h-8 flex items-center justify-center focus:outline-none">
+            <!-- Edit icon -->
+            <mat-icon style="font-size: 14px;">edit</mat-icon>
+        </button>
     </div>
+</div>
+
 
     <!-- User details form -->
     <form (submit)="updateUser()" class="mx-auto">

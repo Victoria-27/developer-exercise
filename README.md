@@ -20,8 +20,6 @@ The User Catalog application is a web-based tool designed to help users manage a
 - Toggle functionality to switch user role
 - Integrated profile picture implementation to user profile
 
-## supabase setup to run the app, list created table, link up file to upload data
-
 ## Supabase Setup
 
 - **Sign Up for Supabase**: [Sign up](https://supabase.io/) for a Supabase account if you haven't already.
@@ -33,8 +31,8 @@ The User Catalog application is a web-based tool designed to help users manage a
 
 Below is a list of table and storage created in the Supabase project:
 
-- `profile`: Description of table 1.
-- `savedpictures`: Description of bucket.
+- `profile`: this table stores the user data.
+- `savedpictures`: this bucket is used to save the uploaded profile picture of each user.
 
 ## System Requirements
 
@@ -59,7 +57,7 @@ To run the application locally:
 ## Sample Data
 
 You can find the sample data used for populating Supabase in the following JSON file:
-[Sample Data JSON](link-to-your-json-file)
+[Sample Data JSON](https://raw.githubusercontent.com/Victoria-27/developer-exercise/master/dummy.json)
 
 ## Troubleshooting and FAQs
 

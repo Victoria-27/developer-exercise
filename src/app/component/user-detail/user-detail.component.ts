@@ -79,6 +79,12 @@ export class UserDetailComponent implements OnInit {
     reader.readAsDataURL(file);
   }
 
+  triggerFileUpload() {
+    const fileInput = document.getElementById('profilePictureInput');
+    fileInput?.click();
+}
+
+
   openSnackBar(message: string) {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
