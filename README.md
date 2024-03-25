@@ -4,13 +4,13 @@ This project was generated with [Angular CLI](https://github.com/angular/angular
 
 ## Introduction
 
-The User Catalog application is a web-based tool designed to help users manage and search through a directory of users. It provides functionalities to search for users and edit their roles, and also edit the user details and profile picture.
+The User Catalog application is a web-based tool designed to help users manage and search through a directory of users. It provides functionalities to search for users and edit their roles, and also edit the user details and upload profile picture.
 
 ## Features
 
 - **Search Users:** Allows users to search for specific users within the directory.
 
-- **Edit User Roles:** Enables users to edit the roles of the users found in the directory.
+- **Edit User Roles:** Enables users to edit the roles of the users found in the directory by toggling the role upon clicking the edit user role button
 
 - **Update User Details:** Allows users to update details and upload profile pictures of users.
 
