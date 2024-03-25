@@ -54,13 +54,13 @@ export class UserService {
     }
   }
 
-  async searchUserRoles(userrole: string) {
+  async searchUserRoles(searchTerm: string) {
     try {
       const { data, error } = await supabase
         .from('profile')
         .select('*')
-        .ilike('userrole', `%${userrole}%`);
-
+        .or(`name.ilike.%${searchTerm}%,userrole.ilike.%${searchTerm}%`);
+  
       if (error) {
         throw error;
       }
@@ -69,6 +69,7 @@ export class UserService {
       throw error;
     }
   }
+
 
   // Fetch user by ID
   async fetchUserById(userId: string | undefined): Promise<any> {
