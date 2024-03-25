@@ -1,18 +1,12 @@
-<nav class="bg-gray-800 p-4">
-    <div class="flex items-center justify-between">
-      <h1 class="text-white text-lg font-bold">User Directory</h1>
-      <div class="flex space-x-4">
-        <!-- Search Users Input Field -->
-        <mat-form-field appearance="fill">
-          <mat-label>Search Users</mat-label>
-          <input matInput [formControl]="searchTerm" class="rounded">
-        </mat-form-field>
-        <!-- Search and Edit User Role Input Field -->
-        <mat-form-field appearance="fill">
-          <mat-label>Search and Edit User Role</mat-label>
-          <input matInput [formControl]="searchRoleTerm" class="rounded">
-        </mat-form-field>
-      </div>
+<nav class="bg-yellow-600">
+    <div class="flex items-center gap-4">
+        <h1 class="text-white text-lg font-bold ml-20">User Directory</h1>
+        <div class="flex space-x-4 border-l-2 p-4 flex-grow">
+            <!-- Search Users Input Field -->
+                <input type="text" placeholder="Search Users" [formControl]="searchTerm" class="w-full rounded-full border-2 border-gray-300 px-4 py-2 focus:outline-none focus:border-yellow-500">
+
+            <!-- Search and Edit User Role Input Field -->
+            <input type="text" placeholder="Search and Edit User Role" [formControl]="searchRoleTerm" class=" w-full rounded-full border-2 border-gray-300 px-4 py-2 focus:outline-none focus:border-yellow-500">
+        </div>
     </div>
-  </nav>
-  
+</nav>

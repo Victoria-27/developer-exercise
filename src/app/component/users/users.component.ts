@@ -18,6 +18,7 @@ export class UsersComponent implements OnInit {
   itemsPerPage: number = 10;
   searchTerm: FormControl = new FormControl('');
   showEditRoleButton = false;
+  isHovered: boolean = false;
 
   constructor(
     private router: Router,
@@ -77,17 +78,14 @@ export class UsersComponent implements OnInit {
   }
 
   editUserRole(user: any): void {
-    // Toggle user role
     this.userService.toggleUserRole(user.id)
       .then(() => {
-        // Show success message
         this.openSnackBar('User role updated successfully');
         setTimeout(() => {
           window.location.reload();
         }, 2000);
       })
       .catch(error => {
-        // Show error message
         console.error('Error updating user role:', error);
         this.openSnackBar('Error updating user role');
       });
@@ -119,5 +117,9 @@ export class UsersComponent implements OnInit {
     this.snackBar.open(message, 'Close', {
       duration: 3000,
     });
+  }
+
+  toggleHoverState() {
+    this.isHovered = !this.isHovered;
   }
 }
