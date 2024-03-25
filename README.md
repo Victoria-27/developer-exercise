@@ -12,7 +12,7 @@ The User Catalog application is a web-based tool designed to help users manage a
 
 - **Edit User Roles:** Enables users to edit the roles of the users found in the directory by toggling the role upon clicking the edit user role button
 
-- **Update User Details:** Allows users to update details and upload profile pictures of users.
+- **Update User Details:** Allows users to update details and upload profile pictures of users. I made the ID and Version fields readonly because it is a good practice to prevent accidental modification of these critical attributes. It ensures that these fields remain unchanged and serve their intended purpose as unique identifiers and version tracking.
 
 ## Additional Information
 
